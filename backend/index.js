@@ -4,6 +4,8 @@ const authRoutes = require("./routes/auth");
 const productsRoutes = require("./routes/products");
 const connectToMongoDB = require("./db");
 
+require("dotenv").config(); // Load environment variables from .env
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 

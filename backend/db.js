@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const mongoURI = "mongodb://0.0.0.0:27017/ecommerce?directConnection=true";
+const mongoURI = process.env.MONGODB_URI;
 
 const connetToMongo = () => {
   try {
+    console.log("mongoURI", mongoURI);
     mongoose.set("strictQuery", false);
     mongoose.connect(mongoURI);
     console.log("connected to mongodb successfully");
