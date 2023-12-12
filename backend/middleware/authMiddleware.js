@@ -1,12 +1,18 @@
 const jwt = require("jsonwebtoken");
 const BlacklistedToken = require("../models/BlacklistedToken");
 
-const authMiddleware = async (req, res, next) => {
-  const token = req.header("Authorization");
+require("dotenv").config();
 
-  if (!token) {
-    return res.status(401).json({ error: "Unauthorized - Missing token" });
+const authMiddleware = async (req, res, next) => {
+  const tokenHeader = req.header("Authorization");
+
+  if (!tokenHeader || !tokenHeader.startsWith("Bearer ")) {
+    return res
+      .status(401)
+      .json({ error: "Unauthorized - Missing or malformed token" });
   }
+
+  const token = tokenHeader.split(" ")[1];
 
   // Check if the token is blacklisted
   const isTokenBlacklisted = await BlacklistedToken.findOne({ token });
@@ -18,7 +24,7 @@ const authMiddleware = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, "your-secret-key");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {

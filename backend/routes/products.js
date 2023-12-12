@@ -3,12 +3,13 @@ const axios = require("axios");
 const authMiddleware = require("../middleware/authMiddleware");
 const Product = require("../models/Product");
 const router = express.Router();
+require("dotenv").config();
 
 // Products (Protected Route)
-router.get("/products", authMiddleware, async (req, res) => {
+router.post("/products", authMiddleware, async (req, res) => {
   try {
     // Fetch data from the external API
-    const response = await axios.get("https://dummyjson.com/products");
+    const response = await axios.get(process.env.EXTERNAL_PRODUCT_API_URI);
     const productsData = response.data.products;
 
     // Process each product in the array
@@ -43,6 +44,17 @@ router.get("/products", authMiddleware, async (req, res) => {
     const groupedProducts = groupProductsByCategory(allProducts);
 
     res.status(200).json(groupedProducts);
+  } catch (error) {
+    console.error("Error fetching and processing products", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/products", authMiddleware, async (req, res) => {
+  try {
+    // Fetch all products from MongoDB
+    const allProducts = await Product.find({}, { _id: 0, __v: 0 });
+    res.status(200).json(allProducts);
   } catch (error) {
     console.error("Error fetching and processing products", error);
     res.status(500).json({ error: "Internal Server Error" });
