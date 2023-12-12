@@ -51,10 +51,12 @@ router.post("/login", async (req, res) => {
 });
 
 // Logout
-router.post("/logout", (req, res) => {
+router.post("/logout", async (req, res) => {
   try {
-    // Optional: You can add logic here to invalidate the user's token on the server side if necessary.
-    // For example, store a list of invalidated tokens in the database.
+    // Invalidate the user's token on the server side
+    const token = req.header("Authorization");
+    const blacklistedToken = new BlacklistedToken({ token });
+    await blacklistedToken.save();
 
     // Send a response indicating successful logout
     res.status(200).json({ message: "Logout successful" });
