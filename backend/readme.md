@@ -16,14 +16,16 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-project.git
+   git clone https://github.com/architjain798/Assignment-MERN.git
    cd your-project
 
    ```
 
 2. Install dependencies:
 
+   ```bash
    npm install
+   ```
 
 3. Environment Variables
 
@@ -37,7 +39,9 @@ Before you begin, ensure you have met the following requirements:
 
    To start the server, run:
 
+   ```bash
    npm run start
+   ```
 
    Visit http://localhost:3001 in your browser.
 
