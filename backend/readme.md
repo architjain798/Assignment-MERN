@@ -50,7 +50,7 @@ Before you begin, ensure you have met the following requirements:
         POST /api/auth/signup: Create a new user.
         POST /api/auth/login: Log in with existing credentials.
         POST /api/auth/logout: Log out and invalidate the user's token.
-        GET /api/auth/users: Get a list of all users (requires authentication).
+        GET /api/user/users: Get a list of all users (requires authentication).
         GET /api/products: Get a list of products (requires authentication).
 
 ### User API
