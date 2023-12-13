@@ -34,6 +34,7 @@ Before you begin, ensure you have met the following requirements:
    PORT=3001
    MONGODB_URI=mongodb://localhost:27017/yourdbname
    JWT_SECRET=your-secret-key
+   EXTERNAL_PRODUCT_API_URI=https://dummyjson.com/products
 
 4. Usage
 
